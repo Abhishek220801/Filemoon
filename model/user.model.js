@@ -1,28 +1,59 @@
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require("mongoose")
+const bcrypt = require('bcrypt');
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     fullName: {
-        type: String,
-        trim: true,
-        required: true,
-        lowercase: true,
+      type: String,
+      trim: true,
+      required: true,
+      lowercase: true,
     },
     mobile: {
-        type: String,
-        trim: true,
-        required: true,
-        match: [
-            '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-            'Invalid Email Address'
-        ]
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      trim: true,
+      required: true,
+      match: [
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        { message: "Invalid Email Address" },
+      ],
+      unique: true,
     },
     password: {
-        type: String,
-        trim: true,
-        
-    }
-}, {timestamps: true})
+      type: String,
+      trim: true,
+    },
+  },
+  { timestamps: true },
+)
 
-const userModel = model('User', userSchema);
+userSchema.pre("save", async function () {
+  const count = await this.constructor.countDocuments({ mobile: this.mobile })
 
-module.exports = userModel;
+  if (count > 0) {
+    throw new Error("Mobile Number already registered with another account")
+  }
+})
+
+userSchema.pre("save", async function () {
+  const count = await this.constructor.countDocuments({ mobile: this.email })
+
+  if (count > 0) {
+    throw new Error("Email already registered with another account")
+  }
+})
+
+userSchema.pre("save", async function () {
+    const encryptedPassword = await bcrypt.hash(this.password.toString(), 12);
+    this.password = encryptedPassword
+})
+
+const UserModel = model("User", userSchema)
+
+module.exports = UserModel
