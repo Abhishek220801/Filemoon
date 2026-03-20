@@ -1,6 +1,12 @@
 const {Schema, model} = require("mongoose");
 
 const fileSchema = new Schema({
+    path: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        required: true,
+    },
     filename: {
         type: String,
         trim: true,
@@ -23,6 +29,4 @@ const fileSchema = new Schema({
 
 const FileModel = model("File", fileSchema);
 
-module.exports = {
-    FileModel
-}
+module.exports  = FileModel;

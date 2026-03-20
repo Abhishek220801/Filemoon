@@ -1,32 +1,47 @@
-const dotenv = require('dotenv')
-dotenv.config();
+const dotenv = require("dotenv")
+dotenv.config()
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose")
 mongoose.connect(process.env.DB)
 
-const express = require('express');
-const multer = require("multer");
+const express = require("express")
+const multer = require("multer")
+const path = require("node:path")
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'files/')
-    },
-    filename: (req, file, cb) => {
-        const nameArr = file.originalname.split('.');
-        const ext = nameArr.pop();
-        const name = `${crypto.randomUUID()}.${ext}`
-        cb(null, name);
+  destination: (req, file, cb) => {
+    cb(null, "files/")
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
+    let fileog = file.originalname;
+    if (fileog.includes(".")) {     // since a filepath can contain multiple '.'
+      fileog = fileog.split(".")
+      fileog.pop()
+      fileog = fileog.join(".")
     }
+    cb(null, fileog + "-" + uniqueSuffix + path.extname(file.originalname))
+  },
 })
-const upload = multer({storage});
-const { signup, login } = require('./controller/user.controller');
-const { createFile } = require('./controller/file.controller');
-const app = express();
+
+const upload = multer({ storage })
+
+const { signup, login } = require("./controller/user.controller")
+const {
+  createFile,
+  fetchFiles,
+  deleteFile,
+} = require("./controller/file.controller")
+
+const app = express()
 app.listen(process.env.PORT || 8080)
 
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(express.static('view'));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static("view"))
 
-app.post('/signup', signup)
-app.post('/login', login)
-app.post('/file', upload.single("file") , createFile)
+app.post("/signup", signup)
+app.post("/login", login)
+app.post("/file", upload.single("file"), createFile)
+app.get("/files", fetchFiles)
+app.delete("/file/:id", deleteFile)
