@@ -3,17 +3,17 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
-    fullName: {
+    firstname: {
       type: String,
       trim: true,
       required: true,
       lowercase: true,
     },
-    mobile: {
+    lastname: {
       type: String,
       trim: true,
       required: true,
-      unique: true,
+      lowercase: true,
     },
     email: {
       type: String,
@@ -34,15 +34,7 @@ const userSchema = new Schema(
 )
 
 userSchema.pre("save", async function () {
-  const count = await this.constructor.countDocuments({ mobile: this.mobile })
-
-  if (count > 0) {
-    throw new Error("Mobile Number already registered with another account")
-  }
-})
-
-userSchema.pre("save", async function () {
-  const count = await this.constructor.countDocuments({ mobile: this.email })
+  const count = await this.constructor.countDocuments({ email: this.email })
 
   if (count > 0) {
     throw new Error("Email already registered with another account")
