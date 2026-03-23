@@ -8,14 +8,14 @@
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
       rel="stylesheet"
-    />
+    /> 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-    <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+     <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="bg-gray-200 min-h-screen flex justify-center items-center animate__animated animate__fadeIn">
@@ -31,14 +31,13 @@
 
             <div class="flex gap-3">
                 <div class="space-y-1">
-                    <label class="text-gray-500 text-[17px] block">First Name</label>
+                    <label class="text-gray-500 text-[17px] block">First Name <span class="text-red-500">*</span></label>
                     <input
                     name="firstname"
                     class="w-full p-3 rounded border border-gray-300"
                     placeholder="John"
                     required
                     type="text"
-                    value="abhishek"
                     />
                 </div>
                 
@@ -48,34 +47,41 @@
                     name="lastname"
                     class="w-full p-3 rounded border border-gray-300"
                     placeholder="Doe"
-                    required
                     type="text"
-                    value="sankhwar"
                     />
                 </div>
             </div>
 
           <div>
-            <label class="text-gray-500 text-[17px] block">Email</label>
+            <label class="text-gray-500 text-[17px] block">Email <span class="text-red-500">*</span></label>
             <input
               name="email"
               class="w-full p-3 rounded border border-gray-300"
               placeholder="email@mail.com"
               required
               type="email"
-              value="abhishek@gmail.com"
             />
           </div>
 
           <div>
-            <label class="text-gray-500 text-[17px] block">Password</label>
+            <label class="text-gray-500 text-[17px] block">Mobile Number <span class="text-red-500">*</span></label>
+            <input
+              name="mobile"
+              class="w-full p-3 rounded border border-gray-300"
+              placeholder="98XXXXXXXX"
+              required
+              type="number"
+            />
+          </div>
+
+          <div>
+            <label class="text-gray-500 text-[17px] block">Password <span class="text-red-500">*</span></label>
             <input
               name="password"
               class="block w-full p-3 rounded border border-gray-300"
               placeholder="********"
               required
               type="password"
-              value="Abhi@123"
             />
           </div>
 
@@ -93,6 +99,7 @@
         </div>
       </div>
     </div>
+    <script src="js/session.js"></script>
     <script src="js/signup.js"></script>
   </body>
 </html>

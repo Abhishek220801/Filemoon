@@ -25,6 +25,11 @@ const userSchema = new Schema(
       ],
       unique: true,
     },
+    mobile: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     password: {
       type: String,
       trim: true,
@@ -38,6 +43,14 @@ userSchema.pre("save", async function () {
 
   if (count > 0) {
     throw new Error("Email already registered with another account")
+  }
+})
+
+userSchema.pre("save", async function () {
+  const count = await this.constructor.countDocuments({ mobile: this.mobile })
+
+  if (count > 0) {
+    throw new Error("Mobile number already registered with another account")
   }
 })
 
