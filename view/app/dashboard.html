@@ -15,6 +15,7 @@
     />
     <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
     <script src="../js/session.js"></script>
+    <script src="../js/dashboard.js"></script>
   </head>
   <body>
     <div class="bg-gray-100 h-screen">
@@ -63,6 +64,7 @@
 
           <button
             class="w-full py-2 bg-rose-400 text-white rounded-md hover:bg-rose-600"
+            onclick="logout()"
           >
             <i class="ri-logout-circle-r-line"></i>
             <label>Logout</label>
@@ -81,6 +83,7 @@
             <button
               title="logout"
               class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"
+              onclick="logout()"
             >
               <i class="ri-logout-circle-r-line"></i>
             </button>

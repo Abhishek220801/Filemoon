@@ -17,3 +17,10 @@ const getSession = async () => {
     return null
   }
 }
+
+const logout = () => {
+  localStorage.clear();
+  setTimeout(() => {
+    location.href = '../index.html'
+  }, 800);
+}
