@@ -1,3 +1,5 @@
+axios.defaults.baseURL = SERVER
+
 const toast = new Notyf({
     position: {x: 'right', y: 'top'}
 });
@@ -6,7 +8,7 @@ const checkSession = async () => {
     const session = await getSession()
 
     if(session){
-        location.href = 'app/dashboard.html'
+        location.href = '/dashboard'
     }
 }
 
@@ -24,11 +26,11 @@ const signup = async (e) => {
             mobile: mobile.value,
             password: password.value,
         }
-        const {data} = await axios.post('http://localhost:8080/signup', payload);
+        const {data} = await axios.post('/signup', payload);
         form.reset();
         toast.success(data.message);
         setTimeout(() => {
-            location.href = "index.html"
+            location.href = "/"
         }, 2000);
 
     } catch (err) { 

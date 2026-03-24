@@ -1,3 +1,5 @@
+axios.defaults.baseURL = SERVER
+
 const toast = new Notyf({
     position: {x: 'right', y: 'top'}
 });
@@ -6,7 +8,7 @@ const checkSession = async () => {
     const session = await getSession()
 
     if(session){
-        location.href = 'app/dashboard.html'
+        location.href = '/dashboard'
     }
 }
 
@@ -22,11 +24,11 @@ const login = async (e) => {
             email: email.value,
             password: password.value,
         }
-        const {data} = await axios.post('http://localhost:8080/login', payload);
+        const {data} = await axios.post('/login', payload);
         toast.success('Logging in...')
         localStorage.setItem('token', data.token);
         setTimeout(() => {
-            location.href = '../app/dashboard.html'
+            location.href = '/dashboard'
         }, 2000);
     } catch (err) {
         toast.error(err.response ? err.response.data?.message : err.message)

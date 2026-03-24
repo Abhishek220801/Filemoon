@@ -1,3 +1,5 @@
+axios.defaults.baseURL = SERVER
+
 const getSession = async () => {
   try {
     const token = localStorage.getItem("token")
@@ -9,7 +11,7 @@ const getSession = async () => {
     const payload = { token }
 
     const { data } = await axios.post(
-      "http://localhost:8080/token/verify",
+      "/token/verify",
       payload,
     )
     return data
@@ -21,6 +23,6 @@ const getSession = async () => {
 const logout = () => {
   localStorage.clear();
   setTimeout(() => {
-    location.href = '../index.html'
+    location.href = '/'
   }, 800);
 }

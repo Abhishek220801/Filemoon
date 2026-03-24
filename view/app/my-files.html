@@ -13,7 +13,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="../js/env.js"></script>
+
   </head>
   <body>
     <div class="bg-gray-100 h-screen">
@@ -24,8 +28,8 @@
       >
         <div class="flex flex-col items-center overflow-hidden px-10 py-4">
           <img
-            src="../images/smiling-young-man-illustration.png"
-            class="w-80"
+          src="../images/smiling-young-man-illustration.png"
+          class="w-80"
             alt=""
           />
           <h1 class="text-lg font-medium text-white">Abhishek</h1>
@@ -33,7 +37,7 @@
         </div>
 
         <div class="px-6 flex flex-col gap-4">
-          <a href="./dashboard.html">
+          <a href="/dashboard">
             <button
               class="w-full py-2 bg-rose-400 text-white rounded-md hover:bg-rose-600"
             >
@@ -42,7 +46,7 @@
             </button>
           </a>
 
-          <a href="./my-files.html">
+          <a href="/my-files">
             <button
               class="w-full py-2 bg-rose-400 text-white rounded-md hover:bg-rose-600"
             >
@@ -51,7 +55,7 @@
             </button>
           </a>
 
-          <a href="./history.html">
+          <a href="/history">
             <button
               class="w-full py-2 bg-rose-400 text-white rounded-md hover:bg-rose-600"
             >
@@ -59,7 +63,6 @@
               <label>History</label>
             </button>
           </a>
-
           <button
             class="w-full py-2 bg-rose-400 text-white rounded-md hover:bg-rose-600"
           >
@@ -71,22 +74,22 @@
       <section id="section" style="margin-left: 250px; transition: 0.3s">
         <nav
           class="bg-white px-6 py-4 w-full shadow-lg flex justify-between items-center"
-        >
+          >
           <div class="flex items-center gap-2">
             <i class="ri-contrast-2-fill text-5xl text-violet-700"></i>
             <h1 class="text-2xl font-semibold">Filemoon</h1>
           </div>
           <div class="space-x-2">
             <button
-              title="menu"
-              class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"
+            title="menu"
+            class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"
             >
               <i class="ri-logout-circle-r-line"></i>
             </button>
             <button
-              onclick="toggleSidebar()"
-              title="menu"
-              class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"
+            onclick="toggleSidebar()"
+            title="menu"
+            class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"
             >
               <i class="ri-menu-2-line"></i>
             </button>
@@ -101,9 +104,9 @@
                     <label>Add File</label>
                 </button>
             </div>
-          <table class="w-full bg-white">
+            <table class="w-full bg-white">
             <tr class="bg-slate-900 text-white text-left">
-                <th class="font-medium py-3 pl-6">Filename</th>
+              <th class="font-medium py-3 pl-6">Filename</th>
                 <th class="font-medium">Type</th> 
                 <th class="font-medium">Size</th>
                 <th class="font-medium">Created</th>
@@ -116,8 +119,8 @@
                 <td>18 March 2026</td>
                 <td>
                     <div class="space-x-2">
-                        <button title="Delete" class="border border-2 text-white px-2 py-1 bg-rose-400 hover:bg-rose-500 rounded">
-                            <i class="ri-delete-bin-4-line"></i>
+                      <button title="Delete" class="border border-2 text-white px-2 py-1 bg-rose-400 hover:bg-rose-500 rounded">
+                        <i class="ri-delete-bin-4-line"></i>
                         </button>
                         <button title="Download" class="border border-2 text-white px-2 py-1 bg-green-400 hover:bg-green-500 rounded">
                             <i class="ri-download-line"></i>
@@ -158,7 +161,7 @@
                             <i class="ri-delete-bin-4-line"></i>
                         </button>
                         <button title="Download" class="border border-2 text-white px-2 py-1 bg-green-400 hover:bg-green-500 rounded">
-                            <i class="ri-download-line"></i>
+                          <i class="ri-download-line"></i>
                         </button>
                         <button title="Share" class="border border-2 text-white px-2 py-1 bg-amber-400 hover:bg-amber-500 rounded">
                             <i class="ri-share-line"></i>
@@ -174,25 +177,26 @@
             <h1 class="text-lg font-medium text-gray-600">Adding a new file</h1>
             <button title="close" onclick="toggleDrawer()">
                 <i class="ri-close-circle-fill text-lg cursor-pointer hover:text-rose-600"></i>
-            </button>
-        </div>
-        <div class="h-px bg-gray-100 -mx-6"></div>
-        <form class="space-y-6" onsubmit="uploadFile(event)">
-            <div class="flex flex-col gap-2">
+              </button>
+            </div>
+            <div class="h-px bg-gray-100 -mx-6"></div>
+            <form class="space-y-6" onsubmit="uploadFile(event)">
+              <div class="flex flex-col gap-2">
                 <label class="text-gray-600 font-medium">Filename</label>
                 <input required name="filename" title="file" class="py-2 px-3 rounded border border-gray-300" placeholder="Enter a file name">
-            </div>
-            <div class="flex flex-col gap-2">
+              </div>
+              <div class="flex flex-col gap-2">
                 <label class="text-gray-600 font-medium">Choose a file</label>
                 <input name="file" type="file" required title="file" class="py-2 px-3 rounded border border-gray-300">
             </div>
             <button class="py-2 px-6 bg-rose-400 hover:bg-rose-500 text-white rounded font-medium" title="upload" type="submit">Upload Now</button>
         </form>
         <div class="bg-gray-200 h-4">
-            <div class="h-full bg-green-500 w-1/2 text-xs text-center text-gray-200">50%</div>
+          <div class="h-full bg-green-500 w-1/2 text-xs text-center text-gray-200">50%</div>
         </div>
       </div>
     </div>
+    <script src="../js/session.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/my-files.js"></script>
   </body>
