@@ -20,6 +20,8 @@ const getSession = async () => {
   }
 }
 
+getSession();
+
 const logout = () => {
   localStorage.clear();
   setTimeout(() => {

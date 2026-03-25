@@ -28,7 +28,8 @@ const login = async (req, res) => {
     const payload = {
       email: user.email,
       mobile: user.mobile,
-      firstname: user.mobile,
+      firstname: user.firstname,
+      lastname: user.lastname,
       id: user._id
     }
 

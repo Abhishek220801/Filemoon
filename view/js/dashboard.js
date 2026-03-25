@@ -1,11 +1,11 @@
-const checkSession = async () => {
-    const session = await getSession();
-    
-    if(!session){
-        location.href = '/login';
-        localStorage.clear();
-        return;
-    }
+window.onload = () => {
+    showUserDetails();
 }
 
-checkSession();
+const showUserDetails = async () => {
+    const {firstname, lastname, email} = await getSession();
+    const fullname = document.getElementById("fullname");
+    const emailId = document.getElementById("email");
+    fullname.innerText = firstname + ' ' + lastname;
+    emailId.innerText = email;
+}   

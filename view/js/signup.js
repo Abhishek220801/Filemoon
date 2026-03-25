@@ -12,8 +12,6 @@ const checkSession = async () => {
     }
 }
 
-checkSession();
-
 const signup = async (e) => {
     try {
         e.preventDefault();

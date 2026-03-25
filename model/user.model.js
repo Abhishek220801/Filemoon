@@ -12,7 +12,6 @@ const userSchema = new Schema(
     lastname: {
       type: String,
       trim: true,
-      required: true,
       lowercase: true,
     },
     email: {

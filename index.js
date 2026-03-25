@@ -64,8 +64,8 @@ app.get('/dashboard', (req, res) => {
 app.get('/history', (req, res) => {
   res.sendFile(getPath('app/history.html'));
 })
-app.get('/my-files', (req, res) => {
-  res.sendFile(getPath('app/my-files.html'));
+app.get('/files', (req, res) => {
+  res.sendFile(getPath('app/files.html'));
 })
 
 // API endpoints
