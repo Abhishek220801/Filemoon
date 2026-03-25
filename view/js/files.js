@@ -49,12 +49,13 @@ const uploadFile = async (e) => {
         const {data} = await axios.post('/file', formData, options);
         fetchFiles();
         toast.success(`${data.filename} uploaded successfully`);
-        uploadBtn.disabled = false;
         progress.style.width = 0;
         progress.innerHTML = '';
         form.reset();
     } catch (err) {
         toast.error(err.response ? err.response.data?.message : err.message);
+    } finally {
+        uploadBtn.disabled = false;
     }
 }
 
@@ -77,7 +78,7 @@ const fetchFiles = async () => {
                 <td>${moment(file.createdAt).format('DD MMM YYYY, hh:mm A')}</td>
                 <td>
                     <div class="space-x-2">
-                      <button title="Delete" class="border border-2 text-white px-2 py-1 bg-rose-400 hover:bg-rose-500 rounded" onclick="deleteFile('${file._id}')">
+                      <button title="Delete" class="border border-2 text-white px-2 py-1 bg-rose-400 hover:bg-rose-500 rounded" onclick="deleteFile('${file._id}', this)">
                         <i class="ri-delete-bin-4-line"></i>
                         </button>
                         <button title="Download" class="border border-2 text-white px-2 py-1 bg-green-400 hover:bg-green-500 rounded" onclick="downloadFile('${file._id}', '${file.filename}', this)">
@@ -95,10 +96,19 @@ const fetchFiles = async () => {
     } 
 }
 
-const deleteFile = async (id) => {
-    await axios.delete(`/file/${id}`);
-    toast.success('File deleted!')
-    fetchFiles();
+const deleteFile = async (id, button) => {
+    try {
+        button.innerHTML = '<i class="fa fa-spinner fa-spin"></i>'
+        button.disabled = true
+        await axios.delete(`/file/${id}`);
+        toast.success('File deleted!')
+        fetchFiles();
+    } catch (err) {
+        toast.error(err.response ? err.response.data?.message : err.message);
+    } finally {
+        button.innerHTML = '<i class="ri-delete-bin-4-line"></i>'
+        button.disabled = false;
+    }
 }
 
 const downloadFile = async (id, filename, button) => {
