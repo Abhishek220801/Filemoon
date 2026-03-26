@@ -73,7 +73,7 @@ const fetchFiles = async () => {
         const ui = `
         <tr class="text-gray-500  border-b border-gray-200">
                 <td class="py-3 pl-6 capitalize">${file.filename}</td>
-                <td class="capitalize">${file.type}</td>
+                <td class="capitalize">${file.type.split('/')[0]}</td>
                 <td>${getSize(file.size)} mb</td>
                 <td>${moment(file.createdAt).format('DD MMM YYYY, hh:mm A')}</td>
                 <td>

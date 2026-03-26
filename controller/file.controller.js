@@ -2,6 +2,15 @@ const path = require("node:path");
 const FileModel = require("../model/file.model.js");
 const fs = require('node:fs');
 
+const getType = (type) => {
+    const ext = type.split('/').pop();
+
+    if(ext === 'x-msdownload' || ext === 'x-msdos-program')
+        return "application/exe"
+
+    return ext;
+}
+
 const createFile = async (req, res) => {
     try {
         const {filename} = req.body;
@@ -9,7 +18,7 @@ const createFile = async (req, res) => {
         const payload = {
             path: (file.destination+file.filename),
             filename,
-            type: file.mimetype.split('/')[0],
+            type: getType(file.mimetype),
             size: req.file.size
         }
         const newFile = await FileModel.create(payload);
@@ -53,11 +62,11 @@ const downloadFile = async (req, res) => {
     try {
         const { id } = req.params;
         const file = await FileModel.findById(id);
-
+        const ext = file.type.split('/').pop();
         const root = process.cwd();
         const filePath = path.join(root, file.path);
 
-        res.setHeader('Content-Disposition', `attachment; filename="${file.filename}"`);
+        res.setHeader('Content-Disposition', `attachment; filename="${file.filename}.${ext}"`);
 
         res.sendFile(filePath, (err) => {
             if(err) {
