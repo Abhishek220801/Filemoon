@@ -83,4 +83,8 @@ app.delete("/api/file/:id", deleteFile);
 app.get("/api/file/download/:id", downloadFile);
 app.get("/api/dashboard", fetchDashboard);
 app.post('/api/token/verify', verifyToken);
-app.post('/api/file/send', shareFile);
+app.post('/api/file/share', shareFile);
+
+app.use((req, res) => {
+  res.status(404).json({message: 'Page Not Found'});
+})
