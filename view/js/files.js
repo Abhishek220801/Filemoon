@@ -20,10 +20,10 @@ const toggleDrawer = () => {
 }
 
 const uploadFile = async (e) => {
-  try {
-    e.preventDefault()
     const progress = document.getElementById("progress")
     const uploadBtn = document.getElementById("upload-btn")
+  try {
+    e.preventDefault()
     const form = e.target
     const formData = new FormData(form)
 
@@ -68,6 +68,7 @@ const fetchFiles = async () => {
   const table = document.getElementById("files-table")
   table.innerHTML = ""
   for (let file of data) {
+    console.log(file);
     const ui = `
         <tr class="text-gray-500  border-b border-gray-200">
                 <td class="py-3 pl-6 capitalize">${file.filename}</td>

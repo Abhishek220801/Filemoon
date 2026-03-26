@@ -3,12 +3,11 @@ const FileModel = require("../model/file.model.js");
 const fs = require('node:fs');
 
 const getType = (type) => {
-    const ext = type.split('/').pop();
 
-    if(ext === 'x-msdownload' || ext === 'x-msdos-program')
+    if(type === 'x-msdownload' || type === 'x-msdos-program')
         return "application/exe"
 
-    return ext;
+    return type;
 }
 
 const createFile = async (req, res) => {
