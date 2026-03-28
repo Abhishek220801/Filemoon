@@ -115,13 +115,35 @@ const shareFile = async (req, res) => {
       // text: 'Hello from Abhishek via SMTP nodemailer',
       html: getEmailTemplate(link),
     }
-    await conn.sendMail(options)
+
+    const payload = {
+      user: req.user.id,
+      receiverEmail: email,
+      file: fileId         
+    }
+ 
+    await Promise.all([
+      conn.sendMail(options),
+      ShareModel.create(payload)
+    ]) 
     res.status(200).json({ message: "Email sent!" })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 }
 
+const fetchShared = async (req, res) => {
+  try {
+    const history = await ShareModel.find({user : req.user.id})
+      .populate('file')
+      .sort({createdAt: -1});
+    res.status(200).json(history);
+  } catch (err) {
+    res.status(500).json({message: err.message})
+  }
+}
+
 module.exports = {
   shareFile,
+  fetchShared
 }

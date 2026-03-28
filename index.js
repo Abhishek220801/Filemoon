@@ -41,7 +41,7 @@ const {
 } = require("./controller/file.controller");
 const fetchDashboard = require("./controller/dashboard.controller");
 const verifyToken = require("./controller/token.controller");
-const { shareFile } = require("./controller/share.controller");
+const { shareFile, fetchShared } = require("./controller/share.controller");
 const AuthMiddleware = require("./middleware/auth.middleware");
 
 const app = express();
@@ -85,6 +85,7 @@ app.get("/api/file/download/:id", downloadFile);
 app.get("/api/dashboard", AuthMiddleware, fetchDashboard);
 app.post('/api/token/verify', verifyToken);
 app.post('/api/file/share', AuthMiddleware, shareFile);
+app.get('/api/files/shared', AuthMiddleware, fetchShared);
 
 app.use((req, res) => {
   res.status(404).json({message: 'Page Not Found'});

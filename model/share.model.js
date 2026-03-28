@@ -1,12 +1,12 @@
 const {Schema, model, default: mongoose} = require("mongoose");
 
 const shareSchema = new Schema({
-    from: {
+    user: {
         type: mongoose.Types.ObjectId, // userID
         ref: 'User',
         required: true
     },
-    to: {
+    receiverEmail: {
         type: String, // email address
         required: true
     },
