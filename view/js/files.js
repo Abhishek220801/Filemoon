@@ -4,6 +4,15 @@ window.onload = () => {
   fetchFiles()
 }
 
+const getToken = () => {
+  const options = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  }
+  return options;
+}
+
 const toast = new Notyf({
   position: { x: "center", y: "top" },
 })
@@ -43,6 +52,7 @@ const uploadFile = async (e) => {
         progress.style.width = percentageVal + "%"
         progress.innerHTML = percentageVal + "%"
       },
+      ...getToken()
     }
     uploadBtn.disabled = true
     const { data } = await axios.post("/file", formData, options)
@@ -64,7 +74,7 @@ const getSize = (size) => {
 }
 
 const fetchFiles = async () => {
-  const { data } = await axios.get("/files")
+  const { data } = await axios.get("/files", getToken());
   const table = document.getElementById("files-table")
   table.innerHTML = ""
   for (let file of data) {
@@ -99,7 +109,7 @@ const deleteFile = async (id, button) => {
   try {
     button.innerHTML = '<i class="fa fa-spinner fa-spin"></i>'
     button.disabled = true
-    await axios.delete(`/file/${id}`)
+    await axios.delete(`/file/${id}`, getToken());
     toast.success("File deleted!")
     fetchFiles()
   } catch (err) {
@@ -116,6 +126,7 @@ const downloadFile = async (id, filename, button) => {
     button.disabled = true
     const options = {
       responseType: "blob",
+      ...getToken()
     }
     const { data } = await axios.get(`file/download/${id}`, options)
     console.log(data)
@@ -213,7 +224,7 @@ const shareFile = async (id, e) => {
             <i class="fa fa-spinner fa-spin"></i> 
             sending
             `
-    await axios.post("/file/share", payload)
+    await axios.post("/file/share", payload, getToken());
     toast.success("File sent to the provided email")
   } catch (err) {
     toast.error(err.response ? err.response.data?.message : err.message)

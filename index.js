@@ -78,13 +78,13 @@ app.get('/files', (req, res) => {
 // API endpoints
 app.post("/api/signup", signup);
 app.post("/api/login", login);
-app.post("/api/file", upload.single("file"), createFile);
+app.post("/api/file", AuthMiddleware, upload.single("file"), createFile);
 app.get("/api/files", AuthMiddleware, fetchFiles);
-app.delete("/api/file/:id", deleteFile);
+app.delete("/api/file/:id", AuthMiddleware, deleteFile);
 app.get("/api/file/download/:id", downloadFile);
-app.get("/api/dashboard", fetchDashboard);
+app.get("/api/dashboard", AuthMiddleware, fetchDashboard);
 app.post('/api/token/verify', verifyToken);
-app.post('/api/file/share', shareFile);
+app.post('/api/file/share', AuthMiddleware, shareFile);
 
 app.use((req, res) => {
   res.status(404).json({message: 'Page Not Found'});
