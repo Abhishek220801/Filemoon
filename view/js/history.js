@@ -8,7 +8,18 @@ const fetchHistory = async () => {
     try {
         const {data} = await axios.get('/files/shared', getToken());
         let historyTable = document.getElementById('history-table');
-        console.log(historyTable);
+        const notFoundUi = `
+            <div class="p-3 text-center">
+                <h1 class="text-gray-500 text-3xl">You have not shared any files yet.</h1>
+            </div>
+        `
+
+        if(data.length === 0)
+        {
+            historyTable.innerHTML = notFoundUi;
+            return;
+        }
+
         for(let item of data)
         {
             console.log(item);

@@ -5,7 +5,9 @@ const fetchDashboard = async (req, res) => {
         const reports = await FileModel.aggregate([
             {
                 $group: {
-                    _id: '$type',
+                    _id: {
+                        $arrayElemAt: [{ $split: ['$type', '/']}, 0]
+                    },
                     total: { $sum: 1 }
                 }
             },{

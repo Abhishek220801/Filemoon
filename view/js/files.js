@@ -29,10 +29,10 @@ const toggleDrawer = () => {
 }
 
 const uploadFile = async (e) => {
+  e.preventDefault()
     const progress = document.getElementById("progress")
     const uploadBtn = document.getElementById("upload-btn")
   try {
-    e.preventDefault()
     const form = e.target
     const formData = new FormData(form)
 
@@ -41,7 +41,7 @@ const uploadFile = async (e) => {
     const size = getSize(file.size)
     if (size > 200) {
       form.reset()
-      return toast.error("File size too large, maximum size 200mb allowed")
+      return toast.error("File size too large, maximum size 200 MB allowed")
     }
 
     const options = {
@@ -61,6 +61,7 @@ const uploadFile = async (e) => {
     progress.style.width = 0
     progress.innerHTML = ""
     form.reset()
+    toggleDrawer();
   } catch (err) {
     toast.error(err.response ? err.response.data?.message : err.message)
   } finally {
@@ -69,8 +70,15 @@ const uploadFile = async (e) => {
 }
 
 const getSize = (size) => {
-  const mb = size / 1000 / 1000
-  return mb.toFixed(1)
+    const kb = size / 1000;
+    const mb = kb / 1000;
+    const gb = mb / 1000;
+
+    if (gb >= 1) return gb.toFixed(2) + ' GB';
+    if (mb >= 1) return mb.toFixed(2) + ' MB';
+    if (kb >= 1) return kb.toFixed(2) + ' KB';
+
+    return size + ' B';
 }
 
 const fetchFiles = async () => {
@@ -83,7 +91,7 @@ const fetchFiles = async () => {
         <tr class="text-gray-500  border-b border-gray-200">
                 <td class="py-3 pl-6 capitalize">${file.filename}</td>
                 <td class="capitalize">${file.type.split("/")[0]}</td>
-                <td>${getSize(file.size)} mb</td>
+                <td>${getSize(file.size)}</td>
                 <td>${moment(file.createdAt).format("DD MMM YYYY, hh:mm A")}</td>
                 <td>
                     <div class="space-x-2">
@@ -129,7 +137,6 @@ const downloadFile = async (id, filename, button) => {
       ...getToken()
     }
     const { data } = await axios.get(`file/download/${id}`, options)
-    console.log(data)
     const ext = data.type.split("/").pop()
     const url = URL.createObjectURL(data)
     const a = document.createElement("a")

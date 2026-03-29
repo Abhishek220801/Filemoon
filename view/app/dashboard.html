@@ -13,7 +13,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <script src="https://unpkg.com/axios@1.13.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   </head>
   <body>
@@ -98,98 +103,26 @@
 
         <div class="p-6 space-y-4">
           <h1 class="text-lg font-medium">Dashboard</h1>
+          <div id="report-card" class="grid grid-cols-4 gap-4"></div>
           <div class="grid grid-cols-4 gap-4">
             <div
-              class="bg-white overflow-hidden rounded-lg relative shadow hover:shadow-lg h-40 flex flex-col items-center justify-center"
+              class="col-span-2 overflow-hidden bg-white rounded-lg relative shadow hover:shadow-lg p-6 space-y-3"
             >
-              <h1 class="text-xl font-semibold text-gray-600">Videos</h1>
-              <p class="text-4xl font-bold">25609</p>
-              <div
-                class="w-[100px] h-[100px] rounded-full absolute top-7 -left-4 flex justify-center items-center"
-                style="
-                  background-image: linear-gradient(
-                    to right,
-                    #b8cbb8 0%,
-                    #b8cbb8 0%,
-                    #b465da 0%,
-                    #cf6cc9 33%,
-                    #ee609c 66%,
-                    #ee609c 100%
-                  );
-                "
-              >
-                <i class="ri-live-line text-4xl text-white"></i>
+              <h1 class="text-xl font-semibold text-black border-b pb-4 border-gray-100">Recent Uploads</h1>
+              <div class="space-y-4" id="recent-uploads">
               </div>
+
+              
             </div>
 
             <div
-              class="bg-white overflow-hidden rounded-lg relative shadow hover:shadow-lg h-40 flex flex-col items-center justify-center"
+              class="col-span-2 overflow-hidden bg-white rounded-lg relative shadow hover:shadow-lg p-6 space-y-3"
             >
-              <h1 class="text-xl font-semibold text-gray-600">Audios</h1>
-              <p class="text-4xl font-bold">1602</p>
-              <div
-                class="w-[100px] h-[100px] rounded-full absolute top-7 -left-4 flex justify-center items-center"
-                style="
-                  background-image: linear-gradient(
-                    to top,
-                    #37ecba 0%,
-                    #72afd3 100%
-                  );
-                "
-              >
-                <i class="ri-music-2-line text-4xl text-white"></i>
+              <h1 class="text-xl font-semibold text-black border-b pb-4 border-gray-100">Recent Shared</h1>
+              <div class="space-y-4" id="recent-shared">
               </div>
-            </div>
 
-            <div
-              class="bg-white overflow-hidden rounded-lg relative shadow hover:shadow-lg h-40 flex flex-col items-center justify-center"
-            >
-              <h1 class="text-xl font-semibold text-gray-600">PDF</h1>
-              <p class="text-4xl font-bold">3908</p>
-              <div
-                class="w-[100px] h-[100px] rounded-full absolute top-7 -left-4 flex justify-center items-center"
-                style="
-                  background-image: linear-gradient(
-                    to top,
-                    #a7a6cb 0%,
-                    #8989ba 52%,
-                    #8989ba 100%
-                  );
-                "
-              >
-                <i class="ri-file-pdf-2-line text-4xl text-white"></i>
-              </div>
-            </div>
-
-            <div
-              class="bg-white overflow-hidden rounded-lg relative shadow hover:shadow-lg h-40 flex flex-col items-center justify-center"
-            >
-              <h1 class="text-xl font-semibold text-gray-600">Images</h1>
-              <p class="text-4xl font-bold">987</p>
-              <div
-                class="w-[100px] h-[100px] rounded-full absolute top-7 -left-4 flex justify-center items-center"
-                style="
-                  background-image: linear-gradient(
-                    15deg,
-                    #13547a 0%,
-                    #80d0c7 100%
-                  );
-                "
-              >
-                <i class="ri-file-image-line text-4xl text-white"></i>
-              </div>
-            </div>
-
-            <div
-              class="col-span-2 overflow-hidden bg-white rounded-lg relative shadow hover:shadow-lg p-4"
-            >
-              <h1 class="text-xl font-semibold text-gray-600">Recent Uploads</h1>
-            </div>
-
-            <div
-              class="col-span-2 overflow-hidden bg-white rounded-lg relative shadow hover:shadow-lg p-4"
-            >
-              <h1 class="text-xl font-semibold text-gray-600">Recent Uploads</h1>
+              
             </div>
           </div>
         </div>
