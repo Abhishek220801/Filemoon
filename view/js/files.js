@@ -1,7 +1,9 @@
 axios.defaults.baseURL = SERVER
 
 window.onload = () => {
+  showUserDetails()
   fetchFiles()
+  fetchImage()
 }
 
 const getToken = () => {
@@ -26,6 +28,14 @@ const toggleDrawer = () => {
   } else {
     drawer.style.right = "0px"
   }
+}
+
+const showUserDetails = async () => {
+  const { firstname, lastname, email } = await getSession()
+  const fullname = document.getElementById("fullname")
+  const emailId = document.getElementById("email")
+  fullname.innerText = firstname + " " + lastname
+  emailId.innerText = email
 }
 
 const uploadFile = async (e) => {
@@ -237,5 +247,47 @@ const shareFile = async (id, e) => {
     toast.error(err.response ? err.response.data?.message : err.message)
   } finally {
     Swal.close();
+  }
+}
+
+const uploadImage = () => {
+    try {
+      const input = document.createElement("input")
+      const profilePic = document.getElementById("profile-pic")
+      input.type = "file"
+      input.accept = "image/*"
+      input.click()
+  
+      input.onchange = async () => {
+          const file = input.files[0];
+          const formData = new FormData()
+          formData.append('picture', file);
+          await axios.post('/profile-pic', formData, getToken());
+          const url = URL.createObjectURL(file);
+          profilePic.src = url;
+      }
+    } catch (err) {
+      toast.error(err.response ? err.response.data?.message : err.message);
+    }
+} 
+
+const fetchImage = async () => {
+  try {
+    const options = {
+      responseType: 'blob',
+      ...getToken()
+    }
+    const {data} = await axios.get('/profile-pic', options);
+    const url = URL.createObjectURL(data);
+    const pic = document.getElementById("profile-pic");
+    pic.src = url;
+    
+  } catch (err) {
+    if(!err.response)
+      return toast.error(err.message);
+    
+    const error = await (err.response.data).text();
+    const {message} = JSON.parse(error);
+    toast.error(message);
   }
 }

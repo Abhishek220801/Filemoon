@@ -32,7 +32,7 @@ const upload = multer({
   }
  });
 
-const { signup, login } = require("./controller/user.controller")
+const { signup, login, updateProfileImg, fetchProfilePic } = require("./controller/user.controller")
 const {
   createFile,
   fetchFiles,
@@ -78,6 +78,8 @@ app.get('/files', (req, res) => {
 // API endpoints
 app.post("/api/signup", signup);
 app.post("/api/login", login);
+app.post("/api/profile-pic", AuthMiddleware, upload.single('picture'), updateProfileImg); // post since multer upload will happen
+app.get("/api/profile-pic", AuthMiddleware, fetchProfilePic); 
 app.post("/api/file", AuthMiddleware, upload.single("file"), createFile);
 app.get("/api/files", AuthMiddleware, fetchFiles);
 app.delete("/api/file/:id", AuthMiddleware, deleteFile);
@@ -86,6 +88,7 @@ app.get("/api/dashboard", AuthMiddleware, fetchDashboard);
 app.post('/api/token/verify', verifyToken);
 app.post('/api/file/share', AuthMiddleware, shareFile);
 app.get('/api/files/shared', AuthMiddleware, fetchShared);
+
 
 app.use((req, res) => {
   res.status(404).json({message: 'Page Not Found'});

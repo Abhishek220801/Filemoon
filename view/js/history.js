@@ -1,7 +1,9 @@
 axios.defaults.baseURL = SERVER
 
 window.onload = () => {
+    showUserDetails();
     fetchHistory();
+    fetchImage();
 }
 
 const fetchHistory = async () => {

@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
+    image: {
+      type: String,
+      default: 'https://images.unsplash.com/photo-1475403614135-5f1aa0eb5015?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    },
     firstname: {
       type: String,
       trim: true,
