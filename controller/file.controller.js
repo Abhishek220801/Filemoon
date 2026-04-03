@@ -65,19 +65,34 @@ const downloadFile = async (req, res) => {
     try {
         const { id } = req.params;
         const file = await FileModel.findById(id);
+
+        if (!file) {
+            return res.status(404).json({ message: 'File not found' });
+        }
+
         const ext = file.type.split('/').pop();
-        const root = process.cwd();
-        const filePath = path.join(root, file.path);
+        const filePath = path.join(__dirname, '..', file.path);
+
+        console.log('__dirname:', __dirname);
+        console.log('file.path from DB:', file.path);
+        console.log('constructed filePath:', filePath);
+
+        // check if file actually exists on disk before sending
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ message: 'File does not exist on server' });
+        }
 
         res.setHeader('Content-Disposition', `attachment; filename="${file.filename}.${ext}"`);
 
         res.sendFile(filePath, (err) => {
             if(err) {
                 console.log('Error downloading the requested file:', err);
-
-                return res.status(500).json({message: 'File not found'});
+                if(!res.headersSent){
+                    return res.status(500).json({message: 'File not found'});
+                }
             }
-        })
+        });
+
     } catch (err) {
         res.status(500).json({message: err.message});
     }

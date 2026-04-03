@@ -2,7 +2,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const mongoose = require("mongoose");
-mongoose.connect(process.env.DB);
+mongoose.connect(process.env.DB)
+  .then(() => console.log('DB Connected successfully'))
+  .catch((err) => {
+    console.error('Error connecting to DB', err.message);
+    process.exit(0);
+  });
 
 const root = process.cwd();
 const express = require("express");
@@ -15,7 +20,9 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
-    let fileog = file.originalname;
+    let fileog = file.originalname
+      .toLowerCase() // fix case sensitivity on Linux
+      .replace(/\s+/g, "-") // replace spaces with dashes
     if (fileog.includes(".")) {     // since a filepath can contain multiple '.'
       fileog = fileog.split(".")
       fileog.pop()
@@ -45,7 +52,9 @@ const { shareFile, fetchShared } = require("./controller/share.controller");
 const AuthMiddleware = require("./middleware/auth.middleware");
 
 const app = express();
-app.listen(process.env.PORT || 8080);
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

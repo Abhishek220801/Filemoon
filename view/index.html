@@ -37,20 +37,20 @@
               placeholder="email@mail.com"
               required
               type="email"
-              value="abhishek@gmail.com"
             />
           </div>
 
-          <div class="space-y-1">
-            <label class="text-gray-500 text-[17px] block">Password</label>
+          <label class="text-gray-500 text-[17px] block">Password</label>
+          <div class="space-y-1 relative">
             <input
+              id="password-input"
               name="password"
               class="block w-full p-3 rounded border border-gray-300"
               placeholder="********"
               required
               type="password"
-              value="Abhi@123"
-            />
+              >
+              <i id="toggleIcon" class="ri-eye-line absolute right-[10px] top-[50%] translate-[-50%] cursor-pointer"></i>
           </div>
 
           <button

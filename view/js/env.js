@@ -1,1 +1,1 @@
-const SERVER = "http://localhost:8080/api"
+const SERVER = "https://filemoon.meetdev.online/api"
